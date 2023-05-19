@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PostsComponent } from './post/posts/posts.component';
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
-import { PostCommentComponent } from './post/post-comment/post-comment.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { AuthGuard } from './auth/auth.guard';
+import { AddCommentComponent } from './post/add-comment/add-comment.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/posts', pathMatch: 'full' },
@@ -13,7 +14,11 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'posts', component: PostsComponent },
   { path: 'posts/:id', component: PostDetailComponent },
-  { path: ':id/comments', component: PostCommentComponent },
+  {
+    path: 'posts/:id/add-comment',
+    component: AddCommentComponent,
+    canActivate: [AuthGuard],
+  },
   { path: '**', component: NotFoundComponent },
 ];
 

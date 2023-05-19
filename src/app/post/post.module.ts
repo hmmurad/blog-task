@@ -6,9 +6,22 @@ import { PostCommentComponent } from './post-comment/post-comment.component';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FormsModule } from '@angular/forms';
+import { AddCommentComponent } from './add-comment/add-comment.component';
 
 @NgModule({
-  declarations: [PostsComponent, PostDetailComponent, PostCommentComponent],
-  imports: [CommonModule, RouterModule, HttpClientModule, NgxPaginationModule],
+  declarations: [
+    PostsComponent,
+    PostDetailComponent,
+    PostCommentComponent,
+    AddCommentComponent,
+  ],
+  imports: [
+    CommonModule,
+    RouterModule,
+    HttpClientModule,
+    FormsModule,
+    NgxPaginationModule,
+  ],
 })
 export class PostModule {}

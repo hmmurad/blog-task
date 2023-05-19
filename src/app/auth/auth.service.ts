@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of, from } from 'rxjs';
-import { map, switchMap, tap, filter, take } from 'rxjs/operators';
+import { BehaviorSubject, of } from 'rxjs';
 import { User } from './user.model';
 
 @Injectable({
@@ -15,30 +13,33 @@ export class AuthService {
   users: User[] = [
     {
       id: 2,
-      username: 'm@m.com',
+      username: 'murad',
+      email: 'm@m.com',
       password: '123456',
     },
   ];
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
-  getUser() {
-    this.loggedUser$.asObservable();
-  }
-
-  register(username: string, password: string) {
-    const data = { username, password };
+  register(username: string, email: string, password: string) {
+    const data = { username, email, password };
     this.users.push(data);
     return of(this.users);
   }
 
-  login(username: string, password: string) {
-    return of(
-      this.users.find(
-        (res) => res.username === username && res.password === password
-      )
+  login(email: string, password: string) {
+    const user = this.users.find(
+      (res) => res.email === email && res.password === password
     );
+    if (user) {
+      this.loggedUser$.next(user);
+      return of(user);
+    } else {
+      throw new Error('wrong credentials');
+    }
   }
 
-  logout() {}
+  logout() {
+    return this.loggedUser$.next('');
+  }
 }

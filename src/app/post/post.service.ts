@@ -21,4 +21,12 @@ export class PostService {
   getCommentsByPostId(id: number) {
     return this.http.get<any>(`https://dummyjson.com/posts/${id}/comments`);
   }
+
+  addComment(body: string, postId: number, userId: number) {
+    return this.http.post(`https://dummyjson.com/comments/add`, {
+      body,
+      postId,
+      userId,
+    });
+  }
 }
