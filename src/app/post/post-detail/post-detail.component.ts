@@ -13,7 +13,7 @@ import { User } from 'src/app/auth/user.model';
 export class PostDetailComponent implements OnInit {
   post!: Post;
   comments: any;
-  addedComment: string = '';
+  addedComment: any;
   id: any;
   loggedUser!: User;
   constructor(
@@ -30,19 +30,23 @@ export class PostDetailComponent implements OnInit {
     this.route.params.subscribe((param: Params) => {
       this.id = +param['id'];
     });
-    this.route.queryParams.subscribe((param: Params) => {
-      console.log(param);
-      this.addedComment = param['body'];
-    });
+    // this.route.queryParams.subscribe((param: Params) => {
+    //   console.log(param);
+    //   this.addedComment = param['body'];
+    // });
 
     this.getPost(this.id);
     this.getComments(this.id);
+
+    this.postService.comment$.subscribe((res) => {
+      console.log(res);
+      this.addedComment = res;
+    });
   }
 
   getPost(id: number) {
     this.postService.getPostById(id).subscribe(
-      (res) => {
-        console.log(res);
+      (res: Post) => {
         this.post = res;
       },
       (err) => {
@@ -53,7 +57,7 @@ export class PostDetailComponent implements OnInit {
 
   getComments(id: number) {
     this.postService.getCommentsByPostId(id).subscribe((res: any) => {
-      console.log(res.comments);
+      // console.log(res.comments);
       this.comments = res.comments;
     });
   }

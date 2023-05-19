@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +12,8 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   returnUrl: any;
   user: any;
+  errMessage: string = '';
+  successMessage: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -37,15 +38,22 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm.value);
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
-    this.auth.login(email, password).subscribe(
-      (res: any) => {
-        if (res) {
+    this.auth.login(email, password).subscribe((res: any) => {
+      console.log(res);
+
+      if (res) {
+        this.successMessage = 'Login successfull!';
+        setTimeout(() => {
           this.router.navigateByUrl(this.returnUrl);
-        }
-      },
-      (err: any) => {
-        console.log('wrong credentials');
+          this.successMessage = '';
+        }, 1000);
+        console.log(res);
+      } else {
+        this.errMessage = 'Wrong credentials!';
+        setTimeout(() => {
+          this.errMessage = '';
+        }, 1000);
       }
-    );
+    });
   }
 }

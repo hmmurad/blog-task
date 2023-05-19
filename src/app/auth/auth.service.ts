@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject, catchError, of } from 'rxjs';
 import { User } from './user.model';
 
 @Injectable({
@@ -22,7 +22,9 @@ export class AuthService {
   constructor() {}
 
   register(username: string, email: string, password: string) {
-    const data = { username, email, password };
+    let id = Math.floor(Math.random() * (10.0 - 1.0 + 1.0)) + 1.0;
+
+    const data = { id, username, email, password };
     this.users.push(data);
     return of(this.users);
   }
@@ -31,12 +33,9 @@ export class AuthService {
     const user = this.users.find(
       (res) => res.email === email && res.password === password
     );
-    if (user) {
-      this.loggedUser$.next(user);
-      return of(user);
-    } else {
-      throw new Error('wrong credentials');
-    }
+
+    this.loggedUser$.next(user);
+    return of(user);
   }
 
   logout() {

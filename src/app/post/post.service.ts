@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Post } from './posts/post.model';
 
@@ -8,7 +8,13 @@ import { Post } from './posts/post.model';
   providedIn: 'root',
 })
 export class PostService {
+  comment$ = new BehaviorSubject<any>([]);
+
   constructor(private http: HttpClient) {}
+
+  getComments() {
+    return this.comment$.asObservable();
+  }
 
   getAllPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(`https://dummyjson.com/posts?limit=150`);

@@ -14,7 +14,7 @@ export class AddCommentComponent implements OnInit {
   postId!: number;
   userId!: number;
   body!: string;
-  comment = new Subject<any>();
+  comment: any;
   constructor(
     private postService: PostService,
     private route: ActivatedRoute,
@@ -25,13 +25,11 @@ export class AddCommentComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      console.log(params['id']);
       this.postId = params['id'];
     });
 
     this.auth.loggedUser$.subscribe((res) => {
       this.userId = res.id;
-      console.log(this.userId);
     });
   }
 
@@ -39,12 +37,12 @@ export class AddCommentComponent implements OnInit {
     this.postService
       .addComment(this.body, this.postId, this.userId)
       .subscribe((res) => {
-        this.comment.next(res);
+        this.comment = [{ ...res }];
+        this.postService.comment$.next([{ ...res }]);
         this.router.navigate(['../'], {
           relativeTo: this.route,
-          queryParams: { body: this.body },
+          // queryParams: { body: this.body },
         });
-        console.log(res);
       });
   }
 
