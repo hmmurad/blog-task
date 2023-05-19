@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  AbstractControl,
   FormBuilder,
   FormGroup,
   Validators,
@@ -16,7 +15,6 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
-
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
@@ -36,7 +34,7 @@ export class RegisterComponent implements OnInit {
   get f() {
     return this.registerForm.controls;
   }
-
+// register account
   onSubmit() {
     const username = this.registerForm.get('username')?.value;
     const email = this.registerForm.get('email')?.value;

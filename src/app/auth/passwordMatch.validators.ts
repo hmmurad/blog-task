@@ -1,8 +1,8 @@
 import { AbstractControl } from '@angular/forms';
 
-export function passwordValidator(form: AbstractControl) {
-  const password = form.get('password');
-  const confirmPassword = form.get('confirmPassword');
+export function passwordValidator(ctrl: AbstractControl) {
+  const password = ctrl.get('password');
+  const confirmPassword = ctrl.get('confirmPassword');
 
   if (password?.pristine || confirmPassword?.pristine) {
     return null;

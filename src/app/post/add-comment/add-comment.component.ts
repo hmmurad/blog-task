@@ -41,7 +41,6 @@ export class AddCommentComponent implements OnInit {
         this.postService.comment$.next([{ ...res }]);
         this.router.navigate(['../'], {
           relativeTo: this.route,
-          // queryParams: { body: this.body },
         });
       });
   }

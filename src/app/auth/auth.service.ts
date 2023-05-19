@@ -33,7 +33,6 @@ export class AuthService {
     const user = this.users.find(
       (res) => res.email === email && res.password === password
     );
-
     this.loggedUser$.next(user);
     return of(user);
   }

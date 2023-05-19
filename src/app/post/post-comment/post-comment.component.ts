@@ -13,13 +13,7 @@ import { Post } from '../posts/post.model';
 })
 export class PostCommentComponent implements OnInit {
   @Input() comment!: any;
-  constructor(
-    private postService: PostService,
-    private route: ActivatedRoute,
-    private auth: AuthService,
-    private router: Router,
-    private loc: Location
-  ) {}
+  constructor() {}
 
   ngOnInit(): void {}
 }

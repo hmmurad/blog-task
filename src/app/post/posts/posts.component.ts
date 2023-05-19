@@ -10,7 +10,6 @@ import { Post } from './post.model';
 export class PostsComponent implements OnInit {
   p: number = 1;
   posts: Post[] = [];
-
   constructor(private postService: PostService) {}
 
   ngOnInit(): void {

@@ -30,10 +30,6 @@ export class PostDetailComponent implements OnInit {
     this.route.params.subscribe((param: Params) => {
       this.id = +param['id'];
     });
-    // this.route.queryParams.subscribe((param: Params) => {
-    //   console.log(param);
-    //   this.addedComment = param['body'];
-    // });
 
     this.getPost(this.id);
     this.getComments(this.id);

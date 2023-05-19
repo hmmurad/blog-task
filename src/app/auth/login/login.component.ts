@@ -33,14 +33,13 @@ export class LoginComponent implements OnInit {
   get f() {
     return this.loginForm.controls;
   }
-
+// add login
   onSubmit() {
     console.log(this.loginForm.value);
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
     this.auth.login(email, password).subscribe((res: any) => {
       console.log(res);
-
       if (res) {
         this.successMessage = 'Login successfull!';
         setTimeout(() => {
